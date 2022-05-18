@@ -61,3 +61,29 @@ async function getName() {
     const user_email = document.getElementById("user_email")
     user_email.innerText = response_json.email // text 바꾸기
 }
+
+
+// 게시물 생성
+async function postArticle(title, content) {
+
+    const articleData = {
+        title: title,
+        content: content
+    }
+
+    const response = await fetch(`${backend_base_url}/article`, {
+        method: 'POST',
+        headers: {
+            'Authorization': localStorage.getItem("user_token")
+        },
+        body: JSON.stringify(articleData) // js object를 json형식으로 바꿔주어야함.
+    })
+
+    response_json = await response.json()
+
+    if (response.status == 200) {
+        window.location.replace(`${frontend_base_url}/`);
+    } else {
+        alert(response.status)
+    }
+}
