@@ -41,7 +41,6 @@ async function handleLogin() {
 
     response_json = await response.json() // json 함수에서 바로 꺼내 쓸 수 없으므로 변수로 지정함
     localStorage.setItem("user_token", response_json.token) // token 저장
-    console.log(response_json)
 }
 
 
@@ -56,7 +55,6 @@ async function getName() {
         }
     })
     response_json = await response.json()
-    console.log(response_json)
 
     const user_email = document.getElementById("user_email")
     user_email.innerText = response_json.email // text 바꾸기
@@ -86,4 +84,15 @@ async function postArticle(title, content) {
     } else {
         alert(response.status)
     }
+}
+
+
+// 게시물 로드
+async function getArticles() {
+    const response = await fetch(`${backend_base_url}/article`, {
+        method: 'GET',
+
+    })
+    response_json = await response.json()
+    return response_json.articles
 }
