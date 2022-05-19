@@ -41,6 +41,7 @@ async function handleLogin() {
 
     response_json = await response.json() // json 함수에서 바로 꺼내 쓸 수 없으므로 변수로 지정함
     localStorage.setItem("user_token", response_json.token) // token 저장
+    window.location.replace(`${frontend_base_url}/index.html`);
 }
 
 
@@ -54,10 +55,14 @@ async function getName() {
             'Authorization': localStorage.getItem("user_token")
         }
     })
-    response_json = await response.json()
 
-    const user_email = document.getElementById("user_email")
-    user_email.innerText = response_json.email // text 바꾸기
+    if (response.status == 200) {
+        response_json = await response.json()
+
+        return response_json.email
+    } else {
+        return null
+    }
 }
 
 
@@ -95,4 +100,11 @@ async function getArticles() {
     })
     response_json = await response.json()
     return response_json.articles
+}
+
+
+// 로그아웃
+function logout() {
+    localStorage.removeItem("user_token")
+    window.location.replace(`${frontend_base_url}/login.html`);
 }
