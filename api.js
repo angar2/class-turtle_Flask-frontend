@@ -108,3 +108,21 @@ function logout() {
     localStorage.removeItem("user_token")
     window.location.replace(`${frontend_base_url}/login.html`);
 }
+
+
+// 특정 게시물 상세페이지 이동
+function articleDetail(article_id) {
+    console.log(article_id)
+    const url = `${frontend_base_url}/article_detail.html?id=${article_id}`
+    location.href = url
+}
+
+
+async function getArticleDetail(article_id) {
+    const response = await fetch(`${backend_base_url}/article/${article_id}`, {
+        method: 'GET'
+    })
+    response_json = await response.json()
+
+    return response_json.article
+}
