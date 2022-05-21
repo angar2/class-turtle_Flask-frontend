@@ -66,7 +66,7 @@ async function getName() {
 }
 
 
-// 게시물 생성
+// 게시물 생성 데이터 보내기
 async function postArticle(title, content) {
 
     const articleData = {
@@ -92,7 +92,7 @@ async function postArticle(title, content) {
 }
 
 
-// 게시물 로드
+// 전체 게시물 데이터 불러오기
 async function getArticles() {
     const response = await fetch(`${backend_base_url}/article`, {
         method: 'GET',
@@ -118,6 +118,7 @@ function articleDetail(article_id) {
 }
 
 
+// 특정 게시물 데이터 불러오기
 async function getArticleDetail(article_id) {
     const response = await fetch(`${backend_base_url}/article/${article_id}`, {
         method: 'GET'
@@ -125,4 +126,32 @@ async function getArticleDetail(article_id) {
     response_json = await response.json()
 
     return response_json.article
+}
+
+
+// 게시물 수정 데이터 보내기
+
+async function patchArticle(article_id, title, content) {
+
+    const articleData = {
+        "title": title,
+        "content": content
+    }
+
+    const response = await fetch(`${backend_base_url}/article/${article_id}`, {
+        method: 'PATCH',
+        headers: {
+            'Authorization': localStorage.getItem("user_token")
+        },
+        body: JSON.stringify(articleData)
+    })
+
+    if (response.status == 200) {
+        response_json = await response.json()
+        return response_json
+    } else {
+        alert(response.status)
+    }
+
+
 }
