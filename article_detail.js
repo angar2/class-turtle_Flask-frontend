@@ -60,6 +60,9 @@ async function updateArticle() {
     const article = await patchArticle(article_id, input_title.value, input_content.value);
 
     // 수정 후 처리
+    input_title.remove() // textarea 삭제
+    input_content.remove()
+
     const title = document.getElementById("title")
     const content = document.getElementById("content")
     title.style.visibility = "visible" // 숨긴 Element 다시 보이게 하기
