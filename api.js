@@ -130,7 +130,6 @@ async function getArticleDetail(article_id) {
 
 
 // 게시물 수정 데이터 보내기
-
 async function patchArticle(article_id, title, content) {
 
     const articleData = {
@@ -152,6 +151,20 @@ async function patchArticle(article_id, title, content) {
     } else {
         alert(response.status)
     }
+}
 
 
+// 게시물 삭제 요청
+async function deleteArticle() {
+    const response = await fetch(`${backend_base_url}/article/${article_id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': localStorage.getItem("user_token")
+        }
+    })
+    if (response.status == 200) {
+        window.location.replace(`${frontend_base_url}/`)
+    } else {
+        alert(response.status)
+    }
 }

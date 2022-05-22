@@ -72,4 +72,11 @@ async function updateArticle() {
     loadArticle(article_id) // 게시물 데이터 다시 불러오기
 }
 
+
+// 게시물 삭제하기
+async function removeArticle() {
+    await deleteArticle(article_id)
+}
+
+
 loadArticle(article_id)
