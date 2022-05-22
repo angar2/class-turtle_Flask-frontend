@@ -14,13 +14,13 @@ async function loadArticle() {
 
 
 async function checkLogin() {
-    const name = await getName();
+    const user = await getName();
 
     const username = document.getElementById('username')
     const logoutButton = document.getElementById('logout')
 
-    if (name) {
-        username.innerText = name
+    if (user) {
+        username.innerText = user.email
         logoutButton.innerText = "로그아웃"
         logoutButton.setAttribute("onclick", "logout()")
     } else {

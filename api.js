@@ -59,7 +59,7 @@ async function getName() {
     if (response.status == 200) {
         response_json = await response.json()
 
-        return response_json.email
+        return response_json
     } else {
         return null
     }
