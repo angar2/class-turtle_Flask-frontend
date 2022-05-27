@@ -17,14 +17,24 @@ async function loadArticle(article_id) {
     user_email.innerText = article.user_email
     time.innerText = article.time
 
+    // 게시물에 달린 댓글 모두 보여주기
+    const comment_section = document.getElementById("comment_section")
+    comment_section.innerHTML = '' // 중복으로 추가되지 않도록 로드 시 비워줌
+
+    for (let i = 0; i < article.comments.length; i++) {
+        const new_comment = document.createElement("p")
+        new_comment.innerText = article.comments[i].content
+        comment_section.appendChild(new_comment)
+    }
+
+
     const user = await getName();
-    if (user.id != article.user) {
+    if (user.id != article.user_id) {
         const update_button = document.getElementById("update_button")
         const delete_button = document.getElementById("delete_button")
         update_button.style.visibility = "hidden"
         delete_button.style.visibility = "hidden"
     }
-
 }
 
 
@@ -85,6 +95,15 @@ async function updateArticle() {
 // 게시물 삭제하기
 async function removeArticle() {
     await deleteArticle(article_id)
+}
+
+
+// 댓글 작성
+async function writeComment() {
+    const comment_content = document.getElementById("comment_content")
+    const comment = await postComment(article_id, comment_content.value)
+    loadArticle(article_id)
+    comment_content.value = ''
 }
 
 
