@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Turtlegram | Article Detail</title>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="api.js"></script>
     <script src="article_detail.js"></script>
 </head>
@@ -16,6 +17,8 @@
     <p id="content"></p>
     <p id="user_email"></p>
     <p id="time"></p>
+
+    <i id="like_button" class="fa fa-thumbs-up fa-thumbs-down" onclick="likeArticle()"></i>
     <button id="update_button" type="button" onclick="updateMode()">
         수정
     </button>

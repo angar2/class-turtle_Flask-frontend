@@ -1,6 +1,7 @@
 // 특정 article_id 전역변수 설정
 const urlParams = new URLSearchParams(window.location.search); // 현재 url주소에서 파라미터(id)를 취할 때 사용
 const article_id = urlParams.get('id');
+let liked = false
 
 
 // 특정 게시물 상세 페이지 데이터 보여주기
@@ -104,6 +105,21 @@ async function writeComment() {
     const comment = await postComment(article_id, comment_content.value)
     loadArticle(article_id)
     comment_content.value = ''
+}
+
+
+// 좋아요
+async function likeArticle() {
+    const like_button = document.getElementById("like_button")
+    like_button.classList.toggle("fa-thumbs-down") // 해당 class가 없으면 만들어주고 있으면 없애줌
+
+    if (!liked) {
+        const response = await postLike(article_id)
+        liked = true
+    } else {
+        const response = await deleteLike(article_id)
+        liked = false
+    }
 }
 
 

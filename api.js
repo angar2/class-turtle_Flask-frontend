@@ -191,3 +191,37 @@ async function postComment(article_id, comment_content) {
         alert(response.status)
     }
 }
+
+
+// 좋아요 저장 요청
+async function postLike(article_id) {
+    const response = await fetch(`${backend_base_url}/article/${article_id}/like`, {
+        method: 'POST',
+        headers: {
+            'Authorization': localStorage.getItem("user_token")
+        }
+    })
+
+    if (response.status == 200) {
+        response_json = await response.json()
+    } else {
+        alert(response.status)
+    }
+}
+
+
+// 좋아요 취소 요청
+async function deleteLike(article_id) {
+    const response = await fetch(`${backend_base_url}/article/${article_id}/like`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': localStorage.getItem("user_token")
+        }
+    })
+
+    if (response.status == 200) {
+        response_json = await response.json()
+    } else {
+        alert(response.status)
+    }
+}
