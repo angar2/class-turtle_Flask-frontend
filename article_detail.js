@@ -12,11 +12,13 @@ async function loadArticle(article_id) {
     const content = document.getElementById("content")
     const user_email = document.getElementById("user_email")
     const time = document.getElementById("time")
+    const like_button = document.getElementById("like_button")
 
     title.innerText = article.title
     content.innerText = article.content
     user_email.innerText = article.user_email
     time.innerText = article.time
+    like_button.innerText = article.likes_count
 
     // 게시물에 달린 댓글 모두 보여주기
     const comment_section = document.getElementById("comment_section")
@@ -28,6 +30,7 @@ async function loadArticle(article_id) {
         comment_section.appendChild(new_comment)
     }
 
+    updateLike() // 좋아요 여부 체크
 
     const user = await getName();
     if (user.id != article.user_id) {
@@ -108,17 +111,31 @@ async function writeComment() {
 }
 
 
-// 좋아요
+// 좋아요 올리기/취소
 async function likeArticle() {
     const like_button = document.getElementById("like_button")
     like_button.classList.toggle("fa-thumbs-down") // 해당 class가 없으면 만들어주고 있으면 없애줌
 
     if (!liked) {
         const response = await postLike(article_id)
+        like_button.innerText = parseInt(like_button.innerText) + 1
         liked = true
     } else {
         const response = await deleteLike(article_id)
+        like_button.innerText = parseInt(like_button.innerText) - 1
         liked = false
+    }
+}
+
+
+// 좋아요 올리기/취소
+async function updateLike() {
+    const response = await getLike(article_id)
+    console.log(response)
+    liked = response.liked
+
+    if (liked) {
+        like_button.classList.toggle("fa-thumbs-down")
     }
 }
 

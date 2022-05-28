@@ -204,6 +204,7 @@ async function postLike(article_id) {
 
     if (response.status == 200) {
         response_json = await response.json()
+        return response_json
     } else {
         alert(response.status)
     }
@@ -221,6 +222,25 @@ async function deleteLike(article_id) {
 
     if (response.status == 200) {
         response_json = await response.json()
+        return response_json
+    } else {
+        alert(response.status)
+    }
+}
+
+
+// 좋아요 데이터 불러오기
+async function getLike(article_id) {
+    const response = await fetch(`${backend_base_url}/article/${article_id}/like`, {
+        method: 'GET',
+        headers: {
+            'Authorization': localStorage.getItem("user_token")
+        }
+    })
+
+    if (response.status == 200) {
+        response_json = await response.json()
+        return response_json
     } else {
         alert(response.status)
     }
